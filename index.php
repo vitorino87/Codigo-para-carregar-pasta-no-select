@@ -10,7 +10,7 @@
 		</select>
 	</div>
 	<div id='demo'></div>
-    <iframe id='frame' src="edital_de_abertura_final_trt2r118_27_4_2018.pdf" width="100%" height="500px">
+    <iframe id='frame' width="100%" height="500px">
     </iframe>
 	
 	<script src='angular.min.js'>
