@@ -2,8 +2,15 @@
 <html>
   <head>
     <title>Load File in the iframe</title>
+	<meta charset="utf-8">
 	<link rel="stylesheet" href="layout.css"></link>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="google" content="notranslate">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="viewer.css">
+	<script src="pdfjs-2.5.207-dist/build/pdf.js"></script>
+	<script src="pdfjs-2.5.207-dist/web/viewer.js"></script>
   </head>
   <body>
     <h1>Selecione o arquivo que deseja visualizar</h1>
@@ -12,22 +19,10 @@
 		</select>
 	</div>
 	<div id='demo'></div>
-    <iframe id='frame' width="100%" height="500px">
+    <iframe id='frame' src="pdfjs-2.5.207-dist/web/viewer.html?file=compressed.tracemonkey-pldi-09.pdf" width="100%" height="500px">
     </iframe>
-	<div id='BotoesNavegacao'>
-		<button id="prev">Previous</button>
-		<button id="next">Next</button>
-		&nbsp;&nbsp;
-		<span>Page: <span id="page_num"></span> / <span id="page_count"></span>
-		&nbsp;&nbsp;
-		<span>Ir para: <input type="text" id="page" style="width:50px;"></span>		
-		<button id="buscar" style="width:100px;">Ir</button>
-		</span>
-		<br />
-		<canvas id="the-canvas" width="1000px" height="500px"></canvas>
-	</div>
 	<script src='angular.min.js'></script>
-	<script src='usePDFjs.js'></script>
+	<!--<script src='usePDFjs.js'></script>-->
 	<script src='pdfjs-2.5.207-dist/build/pdf.js'></script>
 	
 	<script>
@@ -74,9 +69,13 @@
 			url = x;
 
 			if(h.includes(".pdf")){
-				b.style.display = "none";
+				//b.style.display = "none";
+				var a = document.createElement('a');
+				a.href = "pdfjs-2.5.207-dist/web/viewer.html?file=compressed.tracemonkey-pldi-09.pdf"
 				//document.getElementById("BotoesNavagacao").style.display = "block";//c.style.display = "block";
-				carregarPDF(x,1);
+				a.target="frame";
+				a.click();
+				//carregarPDF(x,1);
 			}else{
 				b.style.display = "block";
 				//document.getElementById("BotoesNavagacao").style.display = "none";
@@ -85,30 +84,4 @@
 				b.src = x;
 			}
 		}
-		
-		// Get the input field
-var input = document.getElementById("page");
-
-// Execute a function when the user releases a key on the keyboard
-input.addEventListener("keyup", function(event) {
-  // Number 13 is the "Enter" key on the keyboard
-  if (event.keyCode === 13) {
-    // Cancel the default action, if needed
-    event.preventDefault();
-    // Trigger the button element with a click
-	var k = Number(input.value);
-    carregarPDF(url,k);
-  }
-});
-
-function buscarPage(){
-	var input = document.getElementById("page");
-	var k = Number(input.value);
-    //carregarPDF(url,k);
-	renderPage(k);
-}
-		
-	
-	</script>
-  </body>
-</html>
+</script>
